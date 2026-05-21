@@ -1,4 +1,4 @@
-# QuickChat – Real-Time Messaging Platform
+# ChatSphere – Real-Time Messaging Platform
 
 A full-stack real-time chat application that enables seamless one-to-one communication with instant message delivery using WebSocket-based architecture.
 
