@@ -9,13 +9,13 @@ import messageRouter from "./routes/messageRoutes.js";
 import { Server } from "socket.io";
 
 //change DNS
-dns.setServers(["1.1.1.1", "8.8.8.8"]);
+dns.setServers(["1.1.1.1", "8.8.8.8"]); 
 
 // Create Express app and HTTP server
 const app = express();
 const server = http.createServer(app);
 
-//Initialize socket.io server
+//Initialize socket.io server 
 export const io = new Server(server, {
 	cors:{origin: "*"}
 })

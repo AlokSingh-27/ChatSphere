@@ -1,66 +1,106 @@
-import React, { useContext, useEffect, useState } from 'react'
-import assets, { imagesDummyData } from '../assets/assets'
+import React, { useContext, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { Image as ImageIcon, LogOut, Info, ShieldAlert } from 'lucide-react';
+import assets from '../assets/assets';
 import { ChatContext } from '../../context/ChatContext';
 import { AuthContext } from '../../context/AuthContext';
 
 const RightSidebar = () => {
-    
+  const { selectedUser, messages } = useContext(ChatContext);
+  const { logout, onlineUsers } = useContext(AuthContext);
+  const [msgImages, setMsgImages] = useState([]);
 
-    const { selectedUser, messages } = useContext(ChatContext);
-    const { logout, onlineUsers } = useContext(AuthContext);
-    const [msgImages, setMsgImages] = useState([]);
-
-    // Get all the images from the messages and set them to state
-    useEffect(() => {
+  // Get all the images from the messages and set them to state
+  useEffect(() => {
+    if (messages) {
       setMsgImages(messages.filter((msg) => msg.image).map((msg) => msg.image));
-    }, [messages]);
+    }
+  }, [messages]);
 
-
-    return (
-      selectedUser && (
-        <div
-          className={`bg-[#8185B2]/10 text-white w-full relative overflow-y-scroll ${selectedUser ? "max-md:hidden" : ""}`}
-        >
-          <div className="pt-16 flex flex-col items-center gap-2 text-xs font-light mx-auto">
-            <img
-              src={selectedUser?.profilePic || assets.avatar_icon}
-              alt=""
-              className="w-20 aspect-square rounded-full"
-            />
-            <h1 className="px-10 text-xl font-medium mx-auto flex items-center gap-2">
-              {onlineUsers.includes(selectedUser._id) && (
-                <p className="w-2 h-2 rounded-full bg-green-500"></p>
-              )}
-              {selectedUser.fullName}
-            </h1>
-            <p className="px-10 mx-auto">{selectedUser.bio}</p>
+  return (
+    selectedUser && (
+      <div
+        className={`bg-[#0F172A]/10 border-l border-slate-800/60 text-slate-200 w-full h-full min-h-0 relative p-6 flex flex-col gap-6 overflow-y-auto shrink-0 z-20 custom-scrollbar ${
+          selectedUser ? "max-md:hidden" : ""
+        }`}
+      >
+        {/* ================= USER DETAIL OVERVIEW ================= */}
+        <div className="pt-8 flex flex-col items-center gap-3 text-center">
+          
+          {/* Avatar Container */}
+          <div className="relative group">
+            <div className="w-20 h-20 rounded-full border border-slate-800 overflow-hidden bg-slate-850 shadow-md">
+              <img
+                src={selectedUser?.profilePic || assets.avatar_icon}
+                alt={selectedUser.fullName}
+                className="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            {onlineUsers.includes(selectedUser._id) && (
+              <span className="absolute bottom-0 right-1.5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-[#020617] shadow-[0_0_8px_#10B981]" />
+            )}
           </div>
 
-          <hr className="border-[#ffffff50] my-4" />
+          {/* User Name & Bio */}
+          <div className="flex flex-col gap-1 leading-tight mt-1 min-w-0 w-full">
+            <h3 className="font-extrabold text-slate-100 text-lg truncate px-4">
+              {selectedUser.fullName}
+            </h3>
+            <p className="text-xs text-slate-400 font-light leading-relaxed px-4 break-words">
+              {selectedUser.bio || "No custom status bio set."}
+            </p>
+          </div>
 
-          <div className="px-5 text-xs">
-            <p>Media</p>
-            <div className="mt-2 max-h-50 overflow-y-scroll grid grid-cols-2 gap-4 opacity-80">
+        </div>
+
+        <hr className="border-slate-800/60 my-1" />
+
+        {/* ================= SHARED MEDIA GRID ================= */}
+        <div className="flex flex-col gap-2 flex-1">
+          <div className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-400 uppercase tracking-widest px-1">
+            <ImageIcon className="w-3.5 h-3.5 text-teal-400 stroke-[2px]" />
+            Shared Media
+          </div>
+          
+          {msgImages.length > 0 ? (
+            <div className="max-h-56 overflow-y-auto grid grid-cols-2 gap-2.5 p-1 rounded-xl bg-slate-950/20 border border-slate-900/50 custom-scrollbar">
               {msgImages.map((url, index) => (
-                <div
+                <motion.div
                   key={index}
                   onClick={() => window.open(url)}
-                  className="cursor-pointer rounded"
+                  className="aspect-square cursor-pointer rounded-lg overflow-hidden border border-slate-800 bg-slate-900 relative group flex items-center justify-center"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <img src={url} alt="" className="h-full rounded-md" />
-                </div>
+                  <img src={url} alt="Shared" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="text-[9px] font-semibold text-white uppercase tracking-wider bg-teal-500/80 px-2 py-0.5 rounded">View</span>
+                  </div>
+                </motion.div>
               ))}
             </div>
-          </div>
-          <button 
-            onClick={()=> logout()}
-            className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-linear-to-r from-purple-400 to-violet-600
-			text-white border-none text-sm font-light py-2 px-20 rounded-full cursor-pointer"
-          >
-            Logout
-          </button>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-8 px-4 text-center gap-2 border border-dashed border-slate-800/80 rounded-2xl bg-[#020617]/20">
+              <ImageIcon className="w-6 h-6 text-slate-700 stroke-[1.5px]" />
+              <span className="text-[10px] text-slate-500 font-light">No images shared in this chat</span>
+            </div>
+          )}
         </div>
-      )
-    );
-}
-export default RightSidebar
+
+        {/* ================= RED TINTED GLASS LOGOUT TRIGGER ================= */}
+        <motion.button 
+          onClick={() => logout()}
+          className="w-full py-3 bg-gradient-to-r from-rose-500/10 to-red-600/20 hover:from-rose-500/20 hover:to-red-600/30 text-rose-250 font-semibold border border-rose-500/35 text-[11px] tracking-wider rounded-xl cursor-pointer flex items-center justify-center gap-2 mt-auto shrink-0 shadow-[0_2px_10px_rgba(239,68,68,0.05)] transition-all duration-300"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <LogOut className="w-3.5 h-3.5 stroke-[2.2px] text-rose-450" />
+          LOGOUT ACCOUNT
+        </motion.button>
+
+      </div>
+    )
+  );
+};
+
+export default RightSidebar;

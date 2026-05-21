@@ -1,11 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 @import "tailwindcss";
 
-*{
-  font-family: "Outfit", sans-serif;
+:root {
+  font-family: "Inter", sans-serif;
 }
 
-::-webkit-scrollbar{
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", sans-serif;
+}
+
+::-webkit-scrollbar {
   display: none;
+}
+
+/* Custom keyframes for premium ambient background glows */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) scale(1.05);
+  }
+  50% {
+    transform: translateY(20px) scale(1);
+  }
+}
+
+.animate-float-1 {
+  animation: float-slow 10s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-reverse 12s ease-in-out infinite;
+}
+
+.animate-float-3 {
+  animation: float-slow 15s ease-in-out infinite 2s;
 }
