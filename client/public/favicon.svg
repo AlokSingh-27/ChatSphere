@@ -1,6 +1,50 @@
-<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M174.433 277.078L166.301 290.817C159.053 303.061 140.948 303.061 133.7 290.817L125.568 277.078C119.261 266.422 116.108 261.096 111.042 258.148C105.977 255.202 99.5992 255.092 86.844 254.873C68.0136 254.548 56.2036 253.394 46.2989 249.292C27.9217 241.679 13.3211 227.08 5.70902 208.702C-4.47037e-07 194.92 0 177.446 0 142.501V127.5C0 78.3988 -8.94073e-07 53.848 11.052 35.8128C17.2363 25.721 25.721 17.2363 35.8128 11.052C53.8479 -8.94073e-07 78.3988 0 127.5 0H172.501C221.602 0 246.152 -8.94073e-07 264.188 11.052C274.281 17.2363 282.765 25.721 288.949 35.8128C300.001 53.848 300.001 78.3988 300.001 127.5V142.501C300.001 177.446 300.001 194.92 294.292 208.702C286.68 227.08 272.08 241.679 253.702 249.292C243.797 253.394 231.988 254.548 213.157 254.873C200.401 255.092 194.024 255.202 188.959 258.148C183.893 261.094 180.739 266.422 174.433 277.078Z" fill="#936EFF"/>
-<path d="M225.004 135.002C225.004 143.287 218.288 150.002 210.004 150.002C201.719 150.002 195.004 143.287 195.004 135.002C195.004 126.717 201.719 120.002 210.004 120.002C218.288 120.002 225.004 126.717 225.004 135.002Z" fill="white"/>
-<path d="M164.996 135.002C164.996 143.287 158.281 150.002 149.996 150.002C141.712 150.002 134.996 143.287 134.996 135.002C134.996 126.717 141.712 120.002 149.996 120.002C158.281 120.002 164.996 126.717 164.996 135.002Z" fill="white"/>
-<path d="M105 135.002C105 143.287 98.2843 150.002 90.0001 150.002C81.7158 150.002 75 143.287 75 135.002C75 126.717 81.7158 120.002 90.0001 120.002C98.2843 120.002 105 126.717 105 135.002Z" fill="white"/>
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Main sphere gradient -->
+    <linearGradient id="sphereGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="50%" stop-color="#14B8A6" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+
+    <!-- Orbit dashed ring gradient -->
+    <linearGradient id="orbitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.7" />
+      <stop offset="50%" stop-color="#14B8A6" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.7" />
+    </linearGradient>
+
+    <!-- Overlay glow gradient -->
+    <radialGradient id="sphereHighlight" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Ambient background glow (simulated for favicon visibility) -->
+  <circle cx="50" cy="50" r="48" fill="#14B8A6" fill-opacity="0.08" filter="blur(2px)" />
+
+  <!-- Orbit Ring -->
+  <circle cx="50" cy="50" r="44" fill="none" stroke="url(#orbitGradient)" stroke-width="1.2" stroke-dasharray="6 8" stroke-opacity="0.6" />
+  <circle cx="50" cy="6" r="3" fill="#2DD4BF" />
+
+  <!-- Sphere Base -->
+  <circle cx="50" cy="50" r="32" fill="url(#sphereGrad)" />
+
+  <!-- Globe Grid lines -->
+  <path d="M 22,50 A 28,28 0 0,0 78,50" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.2" />
+  <path d="M 50,18 A 32,32 0 0,0 50,82" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.2" />
+  <path d="M 50,18 A 16,32 0 0,0 50,82" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.3" />
+  <path d="M 50,18 A 16,32 0 0,1 50,82" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.3" />
+
+  <!-- Chat Bubble Cutout -->
+  <path d="M 38,42 H 62 A 5,5 0 0,1 67,47 V 57 A 5,5 0 0,1 62,62 H 46 L 38,68 V 62 A 5,5 0 0,1 33,57 V 47 A 5,5 0 0,1 38,42 Z" fill="#020617" fill-opacity="0.15" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Three modern chatting dots -->
+  <circle cx="44" cy="52" r="1.5" fill="#ffffff" />
+  <circle cx="50" cy="52" r="1.5" fill="#ffffff" fill-opacity="0.8" />
+  <circle cx="56" cy="52" r="1.5" fill="#ffffff" fill-opacity="0.6" />
+
+  <!-- Glass highlight glare -->
+  <circle cx="50" cy="50" r="32" fill="url(#sphereHighlight)" pointer-events="none" />
 </svg>
